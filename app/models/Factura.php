@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Usuario extends Model
+class Factura extends Model
 {
     use SoftDeletes;
 
     protected $primaryKey = 'id';
-    protected $table = 'Usuarios';
+    protected $table = 'Facturas';
     public $incrementing = true;
     public $timestamps = true;
 
@@ -19,16 +19,18 @@ class Usuario extends Model
     const DELETED_AT = 'fecha_baja';
 
     protected $fillable = [
-        'mail', 
-        'clave',
-        'dni', 
-        'nombre', 
-        'apellido', 
-        'telefono', 
-        'rol', 
-        'sector',
+        'codigo_factura', 
+        'cliente_id', 
+        'mozo_id', 
+        'mesa_id', 
+        'foto', 
+        'monto', 
         'fecha_alta', 
         'fecha_modificacion', 
         'fecha_baja'
     ];
+    public static function obtener_codigo(){
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle($permitted_chars), 0, 5);
+    }
 }

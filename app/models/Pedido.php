@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Usuario extends Model
+class Pedido extends Model
 {
     use SoftDeletes;
 
     protected $primaryKey = 'id';
-    protected $table = 'Usuarios';
+    protected $table = 'Pedidos';
     public $incrementing = true;
     public $timestamps = true;
 
@@ -19,14 +19,14 @@ class Usuario extends Model
     const DELETED_AT = 'fecha_baja';
 
     protected $fillable = [
-        'mail', 
-        'clave',
-        'dni', 
-        'nombre', 
-        'apellido', 
-        'telefono', 
-        'rol', 
-        'sector',
+        'preparador_id', 
+        'factura_id', 
+        'producto_id',
+        'detalle', 
+        'cantidad', 
+        'estado', 
+        'demora_estimada', 
+        'entregado', 
         'fecha_alta', 
         'fecha_modificacion', 
         'fecha_baja'
