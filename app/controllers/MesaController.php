@@ -86,6 +86,26 @@ class MesaController implements IApiUsable
       var_dump(array("error" => "Error al modificar mesa ($e)"));
     }
   }
+  public function CerrarMesa($request, $response, $args){
+    try{
+      $codigo_mesa = $args['codigo_mesa'];      
+      $mesa = Mesa::where('codigo_mesa', $codigo_mesa)->get()->first();
+      if ($mesa !== null) {
+        $mesa->estado = EstadoMesa::Cerrada->name;
+        $mesa->save();
+        $payload =  array("mensaje" =>  "Mesa cerrada");
+      }
+      else{
+        $payload = array("mensaje" => "Verifique que el pedido exista y que además este en estado de Listo.");
+      }
+      $response->getBody()->write(json_encode($payload));
+      return $response->withHeader('Content-Type', 'application/json');
+    }
+    catch(Throwable $e){
+      var_dump(array("error" => "Error al cobrar ($e)"));
+    }
+  }
+
 
   public function BorrarUno($request, $response, $args)
   {

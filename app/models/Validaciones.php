@@ -106,7 +106,7 @@ class Validaciones
                 return 0;
             }
         }
-        return 1;
+        return "Debe ingresar un texto con un largo mínimo de $minimo y  máximo de $maximo.";
     }
     public static function errorCantidad($valor, $minimo, $maximo)
     {
@@ -145,10 +145,9 @@ class Validaciones
 
     public static function errorEntregado($valor)
     {
-        if($valor == "entregado"){
-            return 0;
-        }
-        return "Ingrese 'entregado' para indicar que el pedido ya fue entregado al cliente.";
+        if(strtolower($valor) == "si" || strtolower($valor) == "no" )
+        return "Debe ingresar si o no";
     }
+    
 
 }

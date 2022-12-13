@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pedido extends Model
+class Comanda extends Model
 {
     use SoftDeletes;
 
     protected $primaryKey = 'id';
-    protected $table = 'Pedidos';
+    protected $table = 'Comandas';
     public $incrementing = true;
     public $timestamps = true;
 
@@ -19,20 +19,18 @@ class Pedido extends Model
     const DELETED_AT = 'fecha_baja';
 
     protected $fillable = [
-        'preparador_id', 
-        'comanda_id', 
-        'producto_id',
-        'detalle', 
-        'cantidad', 
-        'estado', 
-        'tomado',
-        'demora_estimada', 
-        'entregado', 
+        'codigo_comanda', 
+        'cliente_id', 
+        'mozo_id', 
+        'mesa_id', 
+        'foto', 
+        'monto', 
         'fecha_alta', 
         'fecha_modificacion', 
         'fecha_baja'
     ];
-    public function Producto(){
-        return $this->hasOne(Producto::class);
+    public static function obtener_codigo(){
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle($permitted_chars), 0, 5);
     }
 }

@@ -6,7 +6,7 @@ enum RolUsuario
     case Cervecero;
     case Cocinero;
     case Mozo;
-    case socio;
+    case Socio;
 
     public static function obtenerValor($index){
         $enums = self::cases();

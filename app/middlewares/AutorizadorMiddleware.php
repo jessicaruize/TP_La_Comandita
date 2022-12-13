@@ -30,7 +30,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             {
-              if($payload->rol == RolUsuario::obtenerValor(0))
+              if($payload->rol == RolUsuario::Bartender->name)
               {
                 $response = $handler->handle($request);
               }
@@ -44,15 +44,13 @@ class AutorizacionMiddelware
               $response = $response->withStatus(400);
             }
           }
-      }
-      
+        }
+        return $response->withHeader('Content-Type', 'application/json');
     } catch (Throwable $e) {
       echo "error $e";
     }
-    finally{
-      return $response->withHeader('Content-Type', 'application/json');
-    }
   }
+
   public function verificarCervecero(Request $request, RequestHandler $handler): Response
   {
     $response = new Response();
@@ -74,7 +72,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             {
-              if($payload->rol == RolUsuario::obtenerValor(1))
+              if($payload->rol == RolUsuario::Cervecero->name)
               {
                 $response = $handler->handle($request);
               }
@@ -97,6 +95,7 @@ class AutorizacionMiddelware
       return $response->withHeader('Content-Type', 'application/json');
     }
   }
+
   public function verificarCocinero(Request $request, RequestHandler $handler): Response
   {
     $response = new Response();
@@ -118,7 +117,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             { 
-              if($payload->rol == RolUsuario::obtenerValor(2) && $payload->sector == Sector::obtenerValor(2))
+              if($payload->rol == RolUsuario::Cocinero->name && $payload->sector == Sector::Cocina->name)
               {
                 $response = $handler->handle($request);
               }
@@ -141,6 +140,7 @@ class AutorizacionMiddelware
       return $response->withHeader('Content-Type', 'application/json');
     }
   }
+
   public function verificarPastelero(Request $request, RequestHandler $handler): Response
   {
     $response = new Response();
@@ -162,7 +162,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             {
-              if($payload->rol == RolUsuario::obtenerValor(2) && $payload->sector == Sector::obtenerValor(3))
+              if($payload->rol == RolUsuario::Cocinero->name && $payload->sector == Sector::CandyBar->name)
               {
                 $response = $handler->handle($request);
               }
@@ -207,7 +207,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             {
-              if($payload->rol == RolUsuario::obtenerValor(3))
+              if($payload->rol == RolUsuario::Mozo->name)
               {
                 $response = $handler->handle($request);
               }
@@ -252,7 +252,7 @@ class AutorizacionMiddelware
             $payload = AutentificadorJWT::ObtenerPayLoad($token);
             if(isset($payload->rol))
             {
-              if($payload->rol == RolUsuario::obtenerValor(4))
+              if($payload->rol == RolUsuario::Socio->name)
               {
                 $response = $handler->handle($request);
               }
